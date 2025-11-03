@@ -1,0 +1,15 @@
+<resources>
+    <string name="restarting_app">Restarting App...</string>
+
+    <string name="trial_year">Free %s - year trial</string>
+    <string name="trial_month">Free %s - month trial</string>
+    <string name="trial_week">Free %s - week trial</string>
+    <string name="trial_day">Free %s - day trial</string>
+
+
+    <string name="price_year">%s / year</string>
+    <string name="price_month">%s / month</string>
+    <string name="price_week">%s / week</string>
+    <string name="price_day">%s / day</string>
+    <string name="price_des">%s, then %s</string>
+</resources>
