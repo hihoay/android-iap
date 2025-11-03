@@ -12,9 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.taymay.library.app.ui.theme.AppTheme
-import taymay.firebase.utils.elog
-import taymay.firebase.utils.getFirebaseRemoteData
-import taymay.firebase.utils.setupUMP
 
 
 /*
@@ -46,17 +43,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        setupUMP(hashUMPTest = "F7EB8E91BAB6191FA8F87015557D41A5") {
-            elog("setupUMP", it)
-        }
-
-        getFirebaseRemoteData(true, "ad_version", "fail") {
-            elog("getFirebaseRemoteData", "callback", it)
-        }
-
-        getFirebaseRemoteData(true, "data_version", "fail") {
-            elog("getFirebaseRemoteData", "callback", it)
-        }
 
         setContent {
             AppTheme {

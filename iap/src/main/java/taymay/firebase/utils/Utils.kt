@@ -3,7 +3,6 @@ package taymay.firebase.utils
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import com.google.firebase.FirebaseApp
 import com.google.gson.Gson
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -45,7 +44,7 @@ import java.net.URL
 import kotlin.coroutines.CoroutineContext
 
 
-fun setupFirebase(
+fun setupIAP(
     context: Application,
     isTesting: Boolean,
     onDone: (Boolean) -> Unit = {}
@@ -55,7 +54,6 @@ fun setupFirebase(
     } else {
         AppEnvironment.setup(context.applicationContext as Application, AppEnvironmentEnum.Develop)
     }
-    FirebaseApp.initializeApp(context)
     var repositoryContainer = RepositoryContainer(context)
 
 
