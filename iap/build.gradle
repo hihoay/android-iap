@@ -1,0 +1,89 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
+    id 'com.google.gms.google-services'
+
+}
+
+android {
+    namespace 'com.taymay.library.iap'
+    compileSdk 36
+
+    defaultConfig {
+        minSdk 23
+        consumerProguardFiles "consumer-rules.pro"
+        vectorDrawables.useSupportLibrary = true
+        ndk.abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+        resConfigs 'af', 'sq', 'am', 'ar', 'hy', 'az', 'eu', 'be', 'bn', 'bs', 'bg', 'ca', 'ceb', 'ny', 'co', 'hr', 'cs', 'da', 'nl', 'en', 'eo', 'et', 'tl', 'fr', 'fy', 'gl', 'ka', 'de', 'el', 'gu', 'ht', 'ha', 'haw', 'iw', 'hi', 'hmn', 'hu', 'is', 'ig', 'id', 'ga', 'it', 'ja', 'jw', 'kn', 'kk', 'km', 'rw', 'ko', 'ku', 'ky', 'lo', 'la', 'lv', 'lt', 'lb', 'mk', 'mg', 'ms', 'ml', 'mt', 'mi', 'mr', 'mn', 'my', 'ne', 'no', 'or', 'ps', 'fa', 'pl', 'pt', 'pa', 'ro', 'ru', 'sm', 'gd', 'sr', 'st', 'sn', 'sd', 'si', 'sk', 'sl', 'so', 'es', 'su', 'sw', 'sv', 'tg', 'ta', 'tt', 'te', 'th', 'tr', 'tk', 'uk', 'ur', 'ug', 'uz', 'vi', 'cy', 'xh', 'yi', 'yo', 'zu', 'zh'
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+    publishing {
+        singleVariant("release") {}
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.17.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'com.google.android.material:material:1.13.0'
+
+    // Clean
+    implementation("com.taymay:android-clean:4.0.2.8")
+    implementation("com.karumi:dexter:6.2.3")
+    implementation("com.google.code.gson:gson:2.13.2")
+    implementation("commons-io:commons-io:2.15.1")
+
+    // Network
+    implementation 'io.ktor:ktor-client-core:3.3.1'
+    implementation("io.ktor:ktor-client-android:3.3.1")
+    implementation "androidx.multidex:multidex:2.0.1"
+    // Firebase
+    implementation 'com.google.firebase:firebase-analytics:23.0.0'
+    implementation 'com.google.firebase:firebase-messaging:25.0.1'
+    implementation 'com.google.firebase:firebase-inappmessaging-display:22.0.2'
+    implementation 'com.google.firebase:firebase-config:23.0.1'
+    implementation 'com.google.android.ump:user-messaging-platform:4.0.0'
+
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = "com.taymay"
+            artifactId = "android-firebase"
+            version = "0.0.0.1"
+            afterEvaluate {
+                from components.release
+            }
+        }
+    }
+    repositories {
+        maven {
+            url = "https://maven.pkg.github.com/hihoay/repository"
+            credentials {
+                username = "develop"
+                password = "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"
+            }
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+    }
+}
+
