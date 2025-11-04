@@ -103,7 +103,7 @@ publishing {
             url = "https://maven.pkg.github.com/hihoay/repository"
             credentials {
                 username = "develop"
-                password = "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"
+                password = "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"
             }
             authentication {
                 basic(BasicAuthentication)
