@@ -12,8 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.taymay.library.app.ui.theme.AppTheme
-import taymay.iap.frameworks.entity.ItemSubscriptionContent
-import taymay.iap.frameworks.views.ui.RemoveAdActivity.Companion.goToIAPActivity
+import taymay.iap.frameworks.utils.setupIAP
 
 /*
 var prop = "show_intro"
@@ -47,33 +46,37 @@ class MainActivity : ComponentActivity() {
 //            elog("checkRemoveAd", "remove_ad", isSuccess)
 //        }
 
+        setupIAP(this.application,true){
+
+        }
+
 
         val key = "remove_ad"
-
-        val listItemSubscriptionContent = listOf(
-            ItemSubscriptionContent(
-                R.drawable.ic_launcher_foreground,
-                "This is a content 1",
-                "This is a content 1 description"
-            ), ItemSubscriptionContent(
-                R.drawable.ic_launcher_foreground,
-                "This is a content 2",
-                "This is a content 2 description"
-            ), ItemSubscriptionContent(
-                R.drawable.ic_launcher_foreground,
-                "This is a content 3",
-                "This is a content 3 description"
-            )
-        )
-
-        goToIAPActivity(
-            listItemSubscriptionContent,
-            key,
-            MainActivity::class.java.name,
-            isSub = false,
-            title = "Unlock Pro Version",
-            buttonTitle = "Continue"
-        )
+//
+//        val listItemSubscriptionContent = listOf(
+//            ItemSubscriptionContent(
+//                R.drawable.ic_launcher_foreground,
+//                "This is a content 1",
+//                "This is a content 1 description"
+//            ), ItemSubscriptionContent(
+//                R.drawable.ic_launcher_foreground,
+//                "This is a content 2",
+//                "This is a content 2 description"
+//            ), ItemSubscriptionContent(
+//                R.drawable.ic_launcher_foreground,
+//                "This is a content 3",
+//                "This is a content 3 description"
+//            )
+//        )
+//
+//        goToIAPActivity(
+//            listItemSubscriptionContent,
+//            key,
+//            MainActivity::class.java.name,
+//            isSub = false,
+//            title = "Unlock Pro Version",
+//            buttonTitle = "Continue"
+//        )
 
         setContent {
             AppTheme {

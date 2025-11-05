@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -19,15 +18,13 @@
             android:layout_height="wrap_content"
             android:src="@drawable/im_tks" />
 
-        <com.github.ybq.android.spinkit.SpinKitView
+        <ProgressBar
             android:id="@+id/spin_load_next_screen"
-            style="@style/SpinKitView.ChasingDots"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_8sdp"
-            android:padding="@dimen/_5sdp"
-            app:SpinKit_Color="#ffffff" />
+            android:padding="@dimen/_5sdp" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Body1"

@@ -3,6 +3,7 @@ package taymay.iap.frameworks.utils
 import android.app.Application
 import android.content.Context
 import android.util.Log
+import com.android.billingclient.api.PurchasesUpdatedListener
 import com.google.gson.Gson
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -60,6 +61,7 @@ fun setupIAP(
 //        return
 //    }
 
+
     if (isOnline(context)) {
         onDone(true)
 //        runWithTimeoutCallback(
@@ -75,6 +77,9 @@ fun setupIAP(
 //            onDone(results.isNotEmpty())
 //        }
     } else onDone(false)
+}
+
+private val purchasesUpdatedListener = PurchasesUpdatedListener { billingResult, purchases ->
 }
 
 suspend fun getJSON(url: String, defaultVault: String): String {
