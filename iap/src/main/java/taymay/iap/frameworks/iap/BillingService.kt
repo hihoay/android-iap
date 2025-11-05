@@ -298,6 +298,7 @@ class BillingService(
      * Update Sku details after initialization.
      * This method has cache functionality.
      */
+
     private fun List<String>.queryProductDetails(type: String, done: () -> Unit) {
         if (::mBillingClient.isInitialized.not() || !mBillingClient.isReady) {
             elog("queryProductDetails. Google billing service is not ready yet.")
@@ -325,23 +326,10 @@ class BillingService(
             if (billingResult.isOk()) {
                 isBillingClientConnected(true, billingResult.responseCode)
                 productDetailsList?.let { list ->
-                    // Log the type to understand what we're dealing with
-                    list.productDetailsList.forEach { elog("productDetailsList", it.title) }
-                    elog("Product details list type: ${list::class.java.name}")
-                    elog("Product details list: $list")
-                    
-                    // Try to access using reflection or other methods
                     try {
-                        val sizeMethod = list::class.java.getMethod("size")
-                        val size = sizeMethod.invoke(list) as Int
-                        elog("Product details list size: $size")
-                        
-                        for (i in 0 until size) {
-                            val getMethod = list::class.java.getMethod("get", Int::class.java)
-                            val productDetail = getMethod.invoke(list, i)
-                            if (productDetail is ProductDetails) {
-                                productDetails[productDetail.productId] = productDetail
-                            }
+                        list.productDetailsList.forEach {
+                            elog("productDetailsList", it.productId, it.title)
+                            productDetails[it.productId] = it
                         }
                     } catch (e: Exception) {
                         elog("Failed to access product details list: ${e.message}")

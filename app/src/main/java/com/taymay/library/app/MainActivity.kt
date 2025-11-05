@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
 //            elog("checkRemoveAd", "remove_ad", isSuccess)
 //        }
 
-        setupIAP(this.application, true, "remove_ad")
+//        setupIAP(this.application, true, "remove_ad")
         val key = "remove_ad"
         DialogRemoveAd(this).showDialogRemoveAd(key, MainActivity::class.java)
 
