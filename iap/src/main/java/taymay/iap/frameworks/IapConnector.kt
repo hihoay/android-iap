@@ -1,11 +1,11 @@
-package iap
+package taymay.iap.frameworks
 
 import android.app.Activity
 import android.content.Context
-import iap.entity.DataWrappers
-import iap.listener.BillingClientConnectionListener
-import iap.listener.PurchaseServiceListener
-import iap.listener.SubscriptionServiceListener
+import taymay.iap.frameworks.entity.DataWrappers
+import taymay.iap.frameworks.listener.BillingClientConnectionListener
+import taymay.iap.frameworks.listener.PurchaseServiceListener
+import taymay.iap.frameworks.listener.SubscriptionServiceListener
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 /**

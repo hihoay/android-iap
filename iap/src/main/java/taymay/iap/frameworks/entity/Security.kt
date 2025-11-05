@@ -1,4 +1,4 @@
-package iap.entity
+package taymay.iap.frameworks.entity
 
 import android.text.TextUtils
 import android.util.Base64
@@ -28,7 +28,7 @@ internal object Security {
      * @param base64PublicKey the base64-encoded public key to use for verifying.
      * @param signedData the signed JSON string (signed, not encrypted)
      * @param signature the signature for the data, signed with the private key
-     * @throws java.io.IOException if encoding algorithm is not supported or key specification
+     * @throws IOException if encoding algorithm is not supported or key specification
      * is invalid
      */
     @Throws(IOException::class)

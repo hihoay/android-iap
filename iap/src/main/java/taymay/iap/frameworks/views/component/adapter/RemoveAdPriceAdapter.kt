@@ -1,10 +1,10 @@
-package iap.view.component.adapter
+package taymay.iap.frameworks.views.component.adapter
 
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import com.taymay.library.iap.R
 import com.taymay.library.iap.databinding.ItemRemoveAdPriceBinding
-import iap.entity.DataWrappers
+import taymay.iap.frameworks.entity.DataWrappers
 
 internal class RemoveAdPriceAdapter :
     BaseListAdapter<DataWrappers.Offer, ItemRemoveAdPriceBinding>(DIFF_CALLBACK) {

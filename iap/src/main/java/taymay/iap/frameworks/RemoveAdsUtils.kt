@@ -1,14 +1,15 @@
-package iap
+package taymay.iap.frameworks
 
 import android.content.Context
-import iap.entity.DataWrappers
-import iap.listener.PurchaseServiceListener
-import iap.listener.SubscriptionServiceListener
+import taymay.iap.frameworks.entity.DataWrappers
+import taymay.iap.frameworks.listener.PurchaseServiceListener
+import taymay.iap.frameworks.listener.SubscriptionServiceListener
 
 
 object RemoveAdsUtils {
     fun Context.checkRemoveAd(key: String, isSub: Boolean, callback : (Boolean) -> Unit) {
-        var subscriptionServiceListener: SubscriptionServiceListener = object : SubscriptionServiceListener {
+        var subscriptionServiceListener: SubscriptionServiceListener = object :
+            SubscriptionServiceListener {
 
             override fun onPricesUpdated(iapKeyPrices: Map<String, DataWrappers.ProductDetails>) {
                 iapKeyPrices.forEach { key, value ->
@@ -33,7 +34,7 @@ object RemoveAdsUtils {
             }
         }
         var purchaseServiceListener: PurchaseServiceListener = object : PurchaseServiceListener {
-            override fun onPricesUpdated(iapKeyPrices: kotlin.collections.Map<kotlin.String, DataWrappers.ProductDetails>) {
+            override fun onPricesUpdated(iapKeyPrices: Map<String, DataWrappers.ProductDetails>) {
 
             }
             override fun onProductPurchased(purchaseInfo: DataWrappers.PurchaseInfo) {
@@ -44,7 +45,7 @@ object RemoveAdsUtils {
             }
             override fun onPurchaseFailed(
                 purchaseInfo: DataWrappers.PurchaseInfo?,
-                billingResponseCode: kotlin.Int?
+                billingResponseCode: Int?
             ) {
             }
         }

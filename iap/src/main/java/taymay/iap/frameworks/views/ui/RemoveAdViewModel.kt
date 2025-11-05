@@ -1,17 +1,15 @@
-package iap.view.ui
+package taymay.iap.frameworks.views.ui
 
 import android.app.Activity
 import android.content.Context
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import iap.IapConnector
-import iap.entity.DataWrappers
-import iap.listener.PurchaseServiceListener
-import iap.listener.SubscriptionServiceListener
 import kotlinx.coroutines.flow.MutableStateFlow
+import taymay.iap.frameworks.IapConnector
+import taymay.iap.frameworks.entity.DataWrappers
+import taymay.iap.frameworks.listener.PurchaseServiceListener
+import taymay.iap.frameworks.listener.SubscriptionServiceListener
 
 
 data class RemoveAdState(
@@ -30,11 +28,13 @@ class RemoveAdViewModel(private val isSubscription: Boolean, private val key: St
     var purchaseServiceListener: PurchaseServiceListener = object : PurchaseServiceListener {
 
         override fun onPricesUpdated(iapKeyPrices: Map<String, DataWrappers.ProductDetails>) {
+
             iapKeyPrices.forEach { key, value ->
-                Log.d(TAG, "🔑 Key: $key\n${value.prettyToString()}")
+                Log.e(TAG, "🔑 Key: $key\n${value.prettyToString()}")
                 _state.value =
                     _state.value.copy(listOffer = value.offers ?: emptyList())
             }
+
         }
 
         override fun onProductPurchased(purchaseInfo: DataWrappers.PurchaseInfo) {
@@ -42,7 +42,7 @@ class RemoveAdViewModel(private val isSubscription: Boolean, private val key: St
         }
 
         override fun onProductRestored(purchaseInfo: DataWrappers.PurchaseInfo) {
-            Log.d(TAG, "onProductRestored")
+            Log.e(TAG, "onProductRestored")
 
         }
 
@@ -50,7 +50,7 @@ class RemoveAdViewModel(private val isSubscription: Boolean, private val key: St
             purchaseInfo: DataWrappers.PurchaseInfo?,
             billingResponseCode: Int?
         ) {
-            Log.d(TAG, "onPurchaseFailed")
+            Log.e(TAG, "onPurchaseFailed")
         }
     }
 
@@ -59,7 +59,7 @@ class RemoveAdViewModel(private val isSubscription: Boolean, private val key: St
 
             override fun onPricesUpdated(iapKeyPrices: Map<String, DataWrappers.ProductDetails>) {
                 iapKeyPrices.forEach { key, value ->
-                    Log.d(TAG, "🔑 Key: $key\n${value.prettyToString()}")
+                    Log.e(TAG, "🔑 Key: $key\n${value.prettyToString()}")
                     val listOffer = value.offers?.filter { it.id != null } ?: emptyList()
                     _state.value = _state.value.copy(listOffer = listOffer)
                 }
@@ -69,18 +69,18 @@ class RemoveAdViewModel(private val isSubscription: Boolean, private val key: St
                 purchaseInfo: DataWrappers.PurchaseInfo?,
                 billingResponseCode: Int?
             ) {
-                Log.d(TAG, "onPurchaseFailed")
+                Log.e(TAG, "onPurchaseFailed")
 
             }
 
             override fun onSubscriptionRestored(purchaseInfo: DataWrappers.PurchaseInfo) {
-                Log.d(TAG, "onSubscriptionRestored")
+                Log.e(TAG, "onSubscriptionRestored")
 
             }
 
             override fun onSubscriptionPurchased(purchaseInfo: DataWrappers.PurchaseInfo) {
                 _state.value = _state.value.copy(isShowDialog = true)
-                Log.d(TAG, "onSubscriptionPurchased")
+                Log.e(TAG, "onSubscriptionPurchased")
             }
         }
 

@@ -1,10 +1,10 @@
-package iap.view.component.adapter
+package taymay.iap.frameworks.views.component.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.taymay.library.iap.R
 import com.taymay.library.iap.databinding.ItemRemoveAdContentBinding
-import iap.entity.ItemSubscriptionContent
+import taymay.iap.frameworks.entity.ItemSubscriptionContent
 
 internal class RemoveAdContentAdapter : BaseListAdapter<ItemSubscriptionContent, ItemRemoveAdContentBinding>(DIFF_CALLBACK) {
     override fun getLayout(viewType: Int): Int {

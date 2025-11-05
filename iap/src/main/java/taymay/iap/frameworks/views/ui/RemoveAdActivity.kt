@@ -1,4 +1,4 @@
-package iap.view.ui
+package taymay.iap.frameworks.views.ui
 
 import android.app.Dialog
 import android.content.Context
@@ -29,9 +29,9 @@ import androidx.lifecycle.lifecycleScope
 import com.taymay.library.iap.R
 import com.taymay.library.iap.databinding.ActivityRemoveAdBinding
 import com.taymay.library.iap.databinding.DialogUpgradedBinding
-import iap.entity.ItemSubscriptionContent
-import iap.view.component.adapter.RemoveAdContentAdapter
-import iap.view.component.adapter.RemoveAdPriceAdapter
+import taymay.iap.frameworks.entity.ItemSubscriptionContent
+import taymay.iap.frameworks.views.component.adapter.RemoveAdContentAdapter
+import taymay.iap.frameworks.views.component.adapter.RemoveAdPriceAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

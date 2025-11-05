@@ -1,6 +1,6 @@
-package iap.listener
+package taymay.iap.frameworks.listener
 
-import iap.entity.DataWrappers
+import taymay.iap.frameworks.entity.DataWrappers
 
 interface SubscriptionServiceListener : BillingServiceListener {
     /**

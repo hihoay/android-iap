@@ -1,4 +1,4 @@
-package iap.view.component.adapter
+package taymay.iap.frameworks.views.component.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

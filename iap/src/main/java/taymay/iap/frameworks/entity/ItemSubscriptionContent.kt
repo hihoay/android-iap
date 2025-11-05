@@ -1,4 +1,4 @@
-package iap.entity
+package taymay.iap.frameworks.entity
 
 data class ItemSubscriptionContent(
     val imageRes: Int,

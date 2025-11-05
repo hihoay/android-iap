@@ -1,4 +1,4 @@
-package iap
+package taymay.iap.frameworks
 
 import android.app.Activity
 import android.content.Context
@@ -6,8 +6,8 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import com.android.billingclient.api.*
-import iap.entity.DataWrappers
-import iap.entity.Security
+import taymay.iap.frameworks.entity.DataWrappers
+import taymay.iap.frameworks.entity.Security
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -467,7 +467,7 @@ internal class BillingService(
         }
     }
 
-    private fun com.android.billingclient.api.ProductDetails.toDataWrapper(): DataWrappers.ProductDetails {
+    private fun ProductDetails.toDataWrapper(): DataWrappers.ProductDetails {
         val offers = this.subscriptionOfferDetails?.map { offer ->
             DataWrappers.Offer(
                 id = offer.basePlanId,

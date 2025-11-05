@@ -1,13 +1,13 @@
-package iap
+package taymay.iap.frameworks
 
 import android.app.Activity
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.CallSuper
-import iap.entity.DataWrappers
-import iap.listener.BillingClientConnectionListener
-import iap.listener.PurchaseServiceListener
-import iap.listener.SubscriptionServiceListener
+import taymay.iap.frameworks.entity.DataWrappers
+import taymay.iap.frameworks.listener.BillingClientConnectionListener
+import taymay.iap.frameworks.listener.PurchaseServiceListener
+import taymay.iap.frameworks.listener.SubscriptionServiceListener
 
 abstract class IBillingService {
 

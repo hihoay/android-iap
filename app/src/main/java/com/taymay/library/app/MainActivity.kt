@@ -33,7 +33,7 @@ prop = "demo"
 var d = getDataRemote("demo", "demo", 1)
 elog("$prop=", d)
 assert(d == 1)
- */
+*/
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

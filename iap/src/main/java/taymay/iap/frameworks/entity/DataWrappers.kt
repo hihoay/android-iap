@@ -1,4 +1,4 @@
-package iap.entity
+package taymay.iap.frameworks.entity
 
 import android.content.Context
 import com.android.billingclient.api.AccountIdentifiers
