@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.taymay.library.app.ui.theme.AppTheme
+import taymay.iap.frameworks.DialogRemoveAd
 import taymay.iap.frameworks.utils.setupIAP
 
 /*
@@ -46,12 +47,11 @@ class MainActivity : ComponentActivity() {
 //            elog("checkRemoveAd", "remove_ad", isSuccess)
 //        }
 
-        setupIAP(this.application,true){
-
-        }
-
-
+        setupIAP(this.application, true, "remove_ad")
         val key = "remove_ad"
+        DialogRemoveAd(this).showDialogRemoveAd(key, MainActivity::class.java)
+
+
 //
 //        val listItemSubscriptionContent = listOf(
 //            ItemSubscriptionContent(

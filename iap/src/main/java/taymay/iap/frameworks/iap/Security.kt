@@ -1,4 +1,4 @@
-package com.limurse.iap
+package taymay.iap.frameworks.iap
 
 import android.text.TextUtils
 import android.util.Base64

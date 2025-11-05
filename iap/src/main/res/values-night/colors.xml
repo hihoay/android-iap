@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Màu của thanh bar và status bar-->
+    <color name="color_bg_language_title">#1D1E22</color>
+<!--Màu nền của item language-->
+    <color name="color_item_language">#1D1E22</color>
+    <!--Màu nền của nut tcik language-->
+    <color name="color_btn_save_language">#0066FF</color>
+    <color name="color_bg_language">#000000</color>
+    <color name="color_language_text">#ffffff</color>
+    <color name="color_btn_back">#FFFFFF</color>
+    <color name="color_select_language_off">#3E434C</color>
+    <color name="color_select_language_on">#0066FF</color>
+
+
+</resources>

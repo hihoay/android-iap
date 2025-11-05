@@ -1,4 +1,4 @@
-package com.limurse.iap
+package taymay.iap.frameworks.iap
 
 import android.app.Activity
 import android.os.Handler

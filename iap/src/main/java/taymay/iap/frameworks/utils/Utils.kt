@@ -5,6 +5,8 @@ import android.content.Context
 import android.util.Log
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.google.gson.Gson
+import taymay.iap.frameworks.iap.DataWrappers
+import taymay.iap.frameworks.iap.PurchaseServiceListener
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.android.Android
@@ -34,6 +36,9 @@ import taymay.frameworks.utils.AppEnvironment
 import taymay.frameworks.utils.AppEnvironment.IS_TESTING
 import taymay.frameworks.utils.AppEnvironment.httpClient
 import taymay.frameworks.utils.AppEnvironmentEnum
+import taymay.iap.frameworks.DialogRemoveAd
+import taymay.iap.frameworks.DialogRemoveAd.Companion.IS_PREMIUM
+import taymay.iap.frameworks.iap.IapConnector
 import taymay.iap.frameworks.utils.MyConnection.isOnline
 import java.io.BufferedReader
 import java.io.File
@@ -42,41 +47,135 @@ import java.net.Inet4Address
 import java.net.NetworkInterface
 import java.net.SocketException
 import java.net.URL
+import java.util.Arrays
 import kotlin.coroutines.CoroutineContext
+
+fun Context.showDialogRemoveAd(idProducts: String, clasHome: Class<*>) {
+    val dialogRemoveAd = DialogRemoveAd(this)
+    dialogRemoveAd.showDialogRemoveAd(
+        idProducts, clasHome
+    )
+}
+
+fun Context.isPayRemoveAd(): Boolean {
+
+    try {
+        return MyCache.getBooleanValueByName(
+            this, IS_PREMIUM
+        )
+    } catch (e: Exception) {
+        return MyCache.getBooleanValueByName(this, IS_PREMIUM)
+
+    }
+}
+
+
+
 
 
 fun setupIAP(
-    context: Application, isTesting: Boolean, onDone: (Boolean) -> Unit = {}
+    context: Context,
+    isTesting: Boolean,
+    products: String,
+    onPricesUpdated: () -> Unit = {},
+    onProductPurchased: () -> Unit = {},
+    onProductRestored: () -> Unit = {},
+    onPurchaseFailed: () -> Unit = {},
 ) {
+
     if (!isTesting) {
         AppEnvironment.setup(context.applicationContext as Application, AppEnvironmentEnum.Main)
     } else {
         AppEnvironment.setup(context.applicationContext as Application, AppEnvironmentEnum.Develop)
     }
+
     var repositoryContainer = RepositoryContainer(context)
 
+    var listNonCons: List<String>
+    var listCons: List<String>
+    var listSubs: List<String>
+    listNonCons = products.split(',').map { it.trim() }
+    listCons = Arrays.asList()
+    listSubs = Arrays.asList()
 
-//    if (Singletons.dataRemotes.isNotEmpty() && Singletons.adRemotes.isNotEmpty()) {
+    val iapConnector: IapConnector = IapConnector(context, listNonCons, listCons, listSubs)
+
+    val purchaseServiceListener: PurchaseServiceListener = object : PurchaseServiceListener {
+
+        override fun onPricesUpdated(iapKeyPrices: Map<String, DataWrappers.ProductDetails>) {
+            onPricesUpdated()
+        }
+
+        override fun onProductPurchased(purchaseInfo: DataWrappers.PurchaseInfo) {
+            onProductPurchased()
+            try {
+//                sessionEventTracking(
+//                    "purchased_${purchaseInfo.sku}", mapOf(
+//                        "orderId" to "${purchaseInfo.orderId}",
+//                        "purchaseToken" to "${purchaseInfo.purchaseToken}",
+//                        "signature" to "${purchaseInfo.signature}",
+//                        "sku" to "${purchaseInfo.sku}",
+//                    )
+//                )
+
+
+            } catch (e: Exception) {
+
+            }
+
+            MyCache.putBooleanValueByName(
+                context, IS_PREMIUM, true
+            )
+        }
+
+        override fun onProductRestored(purchaseInfo: DataWrappers.PurchaseInfo) {
+            onProductRestored()
+            try {
+//                sessionEventTracking(
+//                    "restored_${purchaseInfo.sku}", mapOf(
+//                        "orderId" to "${purchaseInfo.orderId}",
+//                        "purchaseToken" to "${purchaseInfo.purchaseToken}",
+//                        "signature" to "${purchaseInfo.signature}",
+//                        "sku" to "${purchaseInfo.sku}",
+//                    )
+//                )
+
+
+            } catch (e: Exception) {
+
+            }
+
+
+            if (purchaseInfo.sku in listNonCons) MyCache.putBooleanValueByName(
+                context, IS_PREMIUM, true
+            )
+        }
+
+        override fun onPurchaseFailed(
+            purchaseInfo: DataWrappers.PurchaseInfo?, billingResponseCode: Int?
+        ) {
+            onPurchaseFailed()
+
+        }
+    }
+    iapConnector.addPurchaseListener(purchaseServiceListener)
+
+
+//    if (isOnline(context)) {
 //        onDone(true)
-//        return
-//    }
-
-
-    if (isOnline(context)) {
-        onDone(true)
-//        runWithTimeoutCallback(
-//            scope = GlobalScope, timeoutMs = 15000L,
-//            defaultValue = mutableListOf(),
-//            context = Dispatchers.IO,
-//            block = {
-//                mutableListOf()
-//            }) { results ->
-//            elog("Kết quả: ${results.size}")
-//            results.forEach {
-//            }
-//            onDone(results.isNotEmpty())
-//        }
-    } else onDone(false)
+////        runWithTimeoutCallback(
+////            scope = GlobalScope, timeoutMs = 15000L,
+////            defaultValue = mutableListOf(),
+////            context = Dispatchers.IO,
+////            block = {
+////                mutableListOf()
+////            }) { results ->
+////            elog("Kết quả: ${results.size}")
+////            results.forEach {
+////            }
+////            onDone(results.isNotEmpty())
+////        }
+//    } else onDone(false)
 }
 
 private val purchasesUpdatedListener = PurchasesUpdatedListener { billingResult, purchases ->

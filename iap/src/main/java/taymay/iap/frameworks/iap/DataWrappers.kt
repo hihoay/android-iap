@@ -1,4 +1,4 @@
-package com.limurse.iap
+package taymay.iap.frameworks.iap
 
 import com.android.billingclient.api.AccountIdentifiers
 

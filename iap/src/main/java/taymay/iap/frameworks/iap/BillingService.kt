@@ -1,4 +1,4 @@
-package com.limurse.iap
+package taymay.iap.frameworks.iap
 
 import android.app.Activity
 import android.content.Context
@@ -23,6 +23,7 @@ import com.android.billingclient.api.queryPurchasesAsync
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import taymay.iap.frameworks.utils.elog
 
 class BillingService(
     private val context: Context,
@@ -49,11 +50,11 @@ class BillingService(
 
         mBillingClient.startConnection(object : BillingClientStateListener{
             override fun onBillingServiceDisconnected() {
-                log("onBillingServiceDisconnected")
+                elog("onBillingServiceDisconnected")
             }
 
             override fun onBillingSetupFinished(billingResult: BillingResult) {
-                log("onBillingSetupFinishedOkay: billingResult: $billingResult")
+                elog("onBillingSetupFinishedOkay: billingResult: $billingResult")
 
                 when {
                     billingResult.isOk() -> {
@@ -98,7 +99,7 @@ class BillingService(
 
     override fun buy(activity: Activity, sku: String, obfuscatedAccountId: String?, obfuscatedProfileId: String?) {
         if (!sku.isProductReady()) {
-            log("buy. Google billing service is not ready yet. (SKU is not ready yet -1)")
+            elog("buy. Google billing service is not ready yet. (SKU is not ready yet -1)")
             return
         }
 
@@ -107,7 +108,7 @@ class BillingService(
 
     override fun subscribe(activity: Activity, sku: String, offerId: String?, obfuscatedAccountId: String?, obfuscatedProfileId: String?) {
         if (!sku.isProductReady()) {
-            log("buy. Google billing service is not ready yet. (SKU is not ready yet -2)")
+            elog("buy. Google billing service is not ready yet. (SKU is not ready yet -2)")
             return
         }
 
@@ -173,19 +174,18 @@ class BillingService(
     override fun onPurchasesUpdated(billingResult: BillingResult, purchases: List<Purchase>?) {
         val responseCode = billingResult.responseCode
         val debugMessage = billingResult.debugMessage
-        log("onPurchasesUpdated: responseCode:$responseCode debugMessage: $debugMessage")
+        elog("onPurchasesUpdated: responseCode:$responseCode debugMessage: $debugMessage")
         if (!billingResult.isOk()){
             updateFailedPurchases(purchases?.map { getPurchaseInfo(it) }, responseCode)
         }
         when (responseCode) {
             BillingClient.BillingResponseCode.OK -> {
-                log("onPurchasesUpdated. purchase: $purchases")
+                elog("onPurchasesUpdated. purchase: $purchases")
                 processPurchases(purchases)
             }
-            BillingClient.BillingResponseCode.USER_CANCELED ->
-                log("onPurchasesUpdated: User canceled the purchase")
+            BillingClient.BillingResponseCode.USER_CANCELED -> elog("onPurchasesUpdated: User canceled the purchase")
             BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED -> {
-                log("onPurchasesUpdated: The user already owns this item")
+                elog("onPurchasesUpdated: The user already owns this item")
                 //item already owned? call queryPurchases to verify and process all such items
                 CoroutineScope(Dispatchers.IO).launch {
                     queryPurchases()
@@ -204,7 +204,7 @@ class BillingService(
 
     private fun processPurchases(purchasesList: List<Purchase>?, isRestore: Boolean = false) {
         if (!purchasesList.isNullOrEmpty()) {
-            log("processPurchases: " + purchasesList.size + " purchase(s)")
+            elog("processPurchases: " + purchasesList.size + " purchase(s)")
             purchases@ for (purchase in purchasesList) {
                 // The purchase is considered successful in both PURCHASED and PENDING states.
                 val purchaseSuccess = purchase.purchaseState == Purchase.PurchaseState.PURCHASED
@@ -212,7 +212,7 @@ class BillingService(
 
                 if (purchaseSuccess && purchase.products[0].isProductReady()) {
                     if (!isSignatureValid(purchase)) {
-                        log("processPurchases. Signature is not valid for: $purchase")
+                        elog("processPurchases. Signature is not valid for: $purchase")
                         updateFailedPurchase(getPurchaseInfo(purchase))
                         continue@purchases
                     }
@@ -268,7 +268,7 @@ class BillingService(
                 }
             }
         } else {
-            log("processPurchases: with no purchases")
+            elog("processPurchases: with no purchases")
         }
     }
 
@@ -300,13 +300,13 @@ class BillingService(
      */
     private fun List<String>.queryProductDetails(type: String, done: () -> Unit) {
         if (::mBillingClient.isInitialized.not() || !mBillingClient.isReady) {
-            log("queryProductDetails. Google billing service is not ready yet.")
+            elog("queryProductDetails. Google billing service is not ready yet.")
             done()
             return
         }
 
         if (this.isEmpty()) {
-            log("queryProductDetails. Sku list is empty.")
+            elog("queryProductDetails. Sku list is empty.")
             done()
             return
         }
@@ -326,14 +326,15 @@ class BillingService(
                 isBillingClientConnected(true, billingResult.responseCode)
                 productDetailsList?.let { list ->
                     // Log the type to understand what we're dealing with
-                    log("Product details list type: ${list::class.java.name}")
-                    log("Product details list: $list")
+                    list.productDetailsList.forEach { elog("productDetailsList", it.title) }
+                    elog("Product details list type: ${list::class.java.name}")
+                    elog("Product details list: $list")
                     
                     // Try to access using reflection or other methods
                     try {
                         val sizeMethod = list::class.java.getMethod("size")
                         val size = sizeMethod.invoke(list) as Int
-                        log("Product details list size: $size")
+                        elog("Product details list size: $size")
                         
                         for (i in 0 until size) {
                             val getMethod = list::class.java.getMethod("get", Int::class.java)
@@ -343,7 +344,7 @@ class BillingService(
                             }
                         }
                     } catch (e: Exception) {
-                        log("Failed to access product details list: ${e.message}")
+                        elog("Failed to access product details list: ${e.message}")
                     }
                 }
 
@@ -411,7 +412,7 @@ class BillingService(
      */
     private fun String.toProductDetails(type: String, done: (productDetails: ProductDetails?) -> Unit = {}) {
         if (::mBillingClient.isInitialized.not() || !mBillingClient.isReady) {
-            log("buy. Google billing service is not ready yet.(mBillingClient is not ready yet - 001)")
+            elog("buy. Google billing service is not ready yet.(mBillingClient is not ready yet - 001)")
             done(null)
             return
         }
@@ -438,14 +439,14 @@ class BillingService(
                     isBillingClientConnected(true, billingResult.responseCode)
                     val productDetails: ProductDetails? = productDetailsList?.let { list ->
                         // Log the type to understand what we're dealing with
-                        log("Product details list type: ${list::class.java.name}")
-                        log("Product details list: $list")
+                        elog("Product details list type: ${list::class.java.name}")
+                        elog("Product details list: $list")
                         
                         // Try to access using reflection or other methods
                         try {
                             val sizeMethod = list::class.java.getMethod("size")
                             val size = sizeMethod.invoke(list) as Int
-                            log("Product details list size: $size")
+                            elog("Product details list size: $size")
                             
                             for (i in 0 until size) {
                                 val getMethod = list::class.java.getMethod("get", Int::class.java)
@@ -455,7 +456,7 @@ class BillingService(
                                 }
                             }
                         } catch (e: Exception) {
-                            log("Failed to access product details list: ${e.message}")
+                            elog("Failed to access product details list: ${e.message}")
                         }
                         null
                     }
@@ -463,7 +464,7 @@ class BillingService(
                     done(productDetails)
                 }
                 else -> {
-                    log("launchBillingFlow. Failed to get details for sku: $this")
+                    elog("launchBillingFlow. Failed to get details for sku: $this")
                     done(null)
                 }
             }
@@ -475,7 +476,7 @@ class BillingService(
     }
 
     override fun onAcknowledgePurchaseResponse(billingResult: BillingResult) {
-        log("onAcknowledgePurchaseResponse: billingResult: $billingResult")
+        elog("onAcknowledgePurchaseResponse: billingResult: $billingResult")
         if(!billingResult.isOk()){
             updateFailedPurchase(billingResponseCode =  billingResult.responseCode)
         }
@@ -490,13 +491,6 @@ class BillingService(
         return this.responseCode == BillingClient.BillingResponseCode.OK
     }
 
-    private fun log(message: String) {
-        when {
-            enableDebug -> {
-                Log.d(TAG, message)
-            }
-        }
-    }
 
     companion object {
         const val TAG = "GoogleBillingService"

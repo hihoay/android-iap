@@ -2,12 +2,13 @@ package taymay.iap.frameworks.iap
 
 import android.app.Activity
 import android.content.Context
-import com.limurse.iap.BillingClientConnectionListener
-import com.limurse.iap.BillingService
-import com.limurse.iap.IBillingService
-import com.limurse.iap.PurchaseServiceListener
-import com.limurse.iap.SubscriptionServiceListener
+import taymay.iap.frameworks.iap.BillingClientConnectionListener
+import taymay.iap.frameworks.iap.BillingService
+import taymay.iap.frameworks.iap.IBillingService
+import taymay.iap.frameworks.iap.PurchaseServiceListener
+import taymay.iap.frameworks.iap.SubscriptionServiceListener
 import kotlinx.coroutines.DelicateCoroutinesApi
+import taymay.iap.frameworks.utils.elog
 
 /**
  * Initialize billing service.
@@ -32,6 +33,7 @@ class IapConnector @JvmOverloads constructor(
     private var mBillingService: IBillingService? = null
 
     init {
+        elog(nonConsumableKeys.size, nonConsumableKeys)
         val contextLocal = context.applicationContext ?: context
         mBillingService =
             BillingService(contextLocal, nonConsumableKeys, consumableKeys, subscriptionKeys)
