@@ -50,9 +50,7 @@ dependencies {
 
     // Clean
     implementation("com.taymay:android-clean:4.0.2.8")
-    implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.intuit.sdp:sdp-android:1.1.1")
-    implementation("com.github.ybq:Android-SpinKit:1.4.0")
 
     implementation("com.karumi:dexter:6.2.3")
     implementation("com.google.code.gson:gson:2.13.2")
@@ -63,8 +61,7 @@ dependencies {
     implementation("io.ktor:ktor-client-android:3.3.1")
     implementation "androidx.multidex:multidex:2.0.1"
     // Billing
-    implementation 'com.android.billingclient:billing:7.1.1'
-    implementation 'com.android.billingclient:billing-ktx:7.1.1'
+    implementation 'com.android.billingclient:billing-ktx:8.0.0'
 
     // compose
     implementation 'androidx.activity:activity-compose:1.11.0'
