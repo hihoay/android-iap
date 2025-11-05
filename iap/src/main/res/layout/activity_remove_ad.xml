@@ -25,7 +25,6 @@
                 android:padding="@dimen/_12sdp"
                 android:layout_width="@dimen/_24sdp"
                 android:layout_height="@dimen/_24sdp"
-                android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:scaleType="center"/>
 
             <View
@@ -42,7 +41,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginHorizontal="@dimen/_12sdp"
                 android:background="@drawable/background_restore"
-                android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:gravity="center"
                 android:text="Restore" />
 
@@ -116,7 +114,6 @@
                     app:backgroundTint="@null"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_upgrade"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:gravity="center"
                     android:textSize="20sp"
                     android:textColor="@color/black"
@@ -131,8 +128,7 @@
                     android:layout_marginBottom="@dimen/_20sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/description_primary"
-                    />
+                    style="@style/description_primary" />
 
             </LinearLayout>
 

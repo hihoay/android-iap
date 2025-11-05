@@ -71,14 +71,15 @@ layoutRemoveAds.setOnClickListener {
             "This is a content 3 description"    
         )    
     )    
-hihoayGoToIAPActivity(  
-    listItemSubscriptionContent,  
-    key,  
-    MainActivityController::class.java.name,  
-    isSub = isSubscription,  
-    title = "Unlock Pro Version",  
-    buttonTitle = "Continue"  
-)
+    hihoayGoToIAPActivity(  
+        listItemSubscriptionContent,  
+        key,  
+        MainActivityController::class.java.name,  
+        isSub = isSubscription,  
+        title = "Unlock Pro Version",  
+        buttonTitle = "Continue"  
+    )
+}
 ```  
 
 Trong màn hình đích như ở trên là Splash ta có thể lấy ra được người dùng thanh toán hay chưa thông qua:
