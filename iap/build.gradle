@@ -3,7 +3,6 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'maven-publish'
     id 'org.jetbrains.kotlin.plugin.compose'
-
 }
 
 android {
@@ -88,6 +87,7 @@ dependencies {
 }
 
 publishing {
+
     publications {
         release(MavenPublication) {
             groupId = "com.taymay"
@@ -98,6 +98,7 @@ publishing {
             }
         }
     }
+
     repositories {
         maven {
             url = "https://maven.pkg.github.com/hihoay/repository"
@@ -110,5 +111,6 @@ publishing {
             }
         }
     }
+
 }
 
