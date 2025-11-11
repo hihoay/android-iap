@@ -11,7 +11,8 @@
      stages {
           stage('Run Builder Script') {
               steps {
-                  sh 'bash .taymay/module-builder.sh ${GIT_BRANCH} iap'
+                  sendDiscordNotification("${JOB_NAME}: [${BUILD_DISPLAY_NAME} Starting](${BUILD_URL}/pipeline-console)")
+                  sh 'bash .taymay/builder.sh app iap'
               }
           }
      }
