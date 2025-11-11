@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "491325690770",
+    "project_id": "haircut-taymay",
+    "storage_bucket": "haircut-taymay.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491325690770:android:e241d2e95d2ee5a8caa74b",
+        "android_client_info": {
+          "package_name": "com.taymay.haircut"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491325690770-05bvsnpqfqvej6j7vr26j4v1bvosgjml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6oIRVNhsvB2mX9WIkST9SyQqOvEmaeRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491325690770-05bvsnpqfqvej6j7vr26j4v1bvosgjml.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

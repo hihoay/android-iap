@@ -1,0 +1,15 @@
+<resources>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#AEAEAE</item>
+        <item name="colorControlActivated">#FFC107</item>
+    </style>
+
+
+    <style name="Hihoay_Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:statusBarColor">@color/color_bg_language_title</item>
+    </style>
+
+</resources>
